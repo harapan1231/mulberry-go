@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="H.N">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="application-name" content="Mulberry">
+<title>Mulberry</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/css/mulberry.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazy.js/0.4.2/lazy.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/0.2.1/mithril.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.js"></script>
+<script src="/js/mulberry.js"></script>
+<script src="/js/mulberry_util.js"></script>
+</head>
+<body class="grey darken-4 grey-text text-lighten-5">
+<header class="teal darken-3 navbar-fixed"></header>
+<main><div id="page" class="container"></div></main>
+<footer class="brown darken-3 page-footer"></footer>
+<script>
+var header = {};
+header.view = function() {
+  return [
+    m("nav", [
+      m("div", {class: "nav-wrapper"}, [
+        m("small", {class: "brand-logo right"}, m("a", {href: "/", config: m.route}, "Mulberry")),
+        m("ul", {class: "hide-on-small-only"}, [
+          header.vm.links.map(function(link, i) {
+            return [
+              m("li", {class: "col s2"}, [
+                m("a", {href: link.url, config: m.route}, link.text)
+              ]),
+            ];
+          })
+        ]),
+        m("ul", {class: "hide-on-med-and-up"}, [
+          header.vm.mobile_links.map(function(link, i) {
+            return [
+              m("li", [
+                m("a", {href: link.url, config: m.route}, m("i", {class: "material-icons"}, link.text))
+              ]),
+            ];
+          })
+        ]),
+        m("div", (function() {
+          if (mlb.is_progressing) {
+            return m("div", {class: "progress"}, m("div", {class: "indeterminate"}));
+          }
+        })()),
+      ]),
+    ]),
+  ];
+};
+header.vm = (function() {
+  var vm = {};
+  vm.init = function() {
+    vm.links = [
+      {url: "/", text: "Home"},
+      {url: "/settings/user", text: "Sign in"},
+      {url: "/anken/register", text: "Create"},
+      {url: "/anken", text: "Search"},
+      {url: "/settings", text: "Settings"},
+      {url: "/sitemap", text: "SiteMap"}, //TODO
+    ];
+    vm.mobile_links = [
+      {url: "/anken/register", text: "play_arrow"},
+      {url: "/anken", text: "search"},
+      {url: "/sitemap", text: "dashboard"},
+    ];
+  };
+  return vm;
+}());
+header.controller = function() {
+  header.vm.init();
+};
+m.mount(document.getElementsByTagName("header")[0], {view: header.view, controller: header.controller});
+
+var footer = {};
+footer.view = function() {
+  return [
+    m("div", {class: "footer-copyright center-align"}, "© 2016 nabe. All rights reserved."),
+  ];
+};
+footer.vm = (function() {
+  var vm = {};
+  vm.init = function() {
+  };
+  return vm;
+}());
+footer.controller = function() {
+  footer.vm.init();
+};
+m.mount(document.getElementsByTagName("footer")[0], {view: footer.view, controller: footer.controller});
+
+var page = {
+  home: {},
+  anken: {},
+  a_register: {},
+  a_detail: {},
+  a_ver: {},
+  settings: {},
+  s_item: {},
+  sitemap: {},
+};
+</script>
+<script src="/page/home.js"></script>
+<script src="/page/anken.js"></script>
+<script src="/page/a_register.js"></script>
+<script src="/page/a_detail.js"></script>
+<script src="/page/a_ver.js"></script>
+<script src="/page/settings.js"></script>
+<script src="/page/s_item.js"></script>
+<script src="/page/sitemap.js"></script>
+<script>
+mlb.route("/", {
+  "/": page.home,
+  "/anken": page.anken,
+  "/anken/register": page.a_register,
+  "/anken/detail/:anken_id": page.a_detail,
+  //TODO detail page? transfer anken.js?
+  "/anken/ver/detail/:anken_id/:anken_ver": page.a_ver,
+  "/anken/ver/:anken_id": page.a_ver,
+  "/anken/ver/:anken_id/:anken_ver": page.a_ver,
+  "/anken/ver/:anken_id/:anken_ver/:phase_id": page.a_ver,
+  "/settings": page.settings,
+  "/settings/:target": page.s_item,
+  "/sitemap": page.sitemap,
+});
+</script>
+</body>
+</html>

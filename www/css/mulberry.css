@@ -1,0 +1,74 @@
+a {
+color: yellow;
+}
+nav {
+background-color: inherit;
+}
+.select-wrapper span.caret {
+color: white;
+}
+.mlb_upsidedown
+{
+-moz-transform: rotate(180deg);
+-webkit-transform: rotate(180deg);
+-ms-transform: rotate(180deg);
+-o-transform: rotate(180deg);
+transform: rotate(180deg);
+}
+footer.page-footer .footer-copyright {
+height: 64px;
+line-height: 64px;
+}
+.mlb_mirror {
+-moz-transform:matrix(-1, 0, 0, 1, 0, 0);
+-webkit-transform:matrix(-1, 0, 0, 1, 0, 0);
+-o-transform:matrix(-1, 0, 0, 1, 0, 0);
+-ms-transform:matrix(-1, 0, 0, 1, 0, 0);
+transform:matrix(-1, 0, 0, 1, 0, 0);
+}
+.dropdown-content {
+background-color: #bbb;
+}
+.dropdown-content li.hover, 
+.dropdown-content li.active, 
+.dropdown-content li.selected { 
+background-color: #ccc;
+}
+.dropdown-content li.active.selected { 
+background-color: #ccc;
+}
+.toast {
+background-color: #eee;
+color: #111;
+}
+@media only screen and (max-width: 600px) {
+header.navbar-fixed {
+  content: "small";
+}
+}
+div.awesomplete>ul {
+color: #421;
+}
+div.awesomplete mark {
+background-color: orange;
+}
+div.awesomplete {
+display:inherit;
+}
+.input-field label {
+font-size: 0.8rem;
+transform: translateY(-140%);
+}
+table.striped>tbody>tr:nth-child(odd) {
+background-color: #444;
+}
+[type="checkbox"]:checked + label::before {
+border-bottom-color: #afb42b;
+border-right-color: #afb42b;
+}
+a.td-btn {
+width: 100%;
+}
+.valign-top {
+vertical-align: top;
+}
